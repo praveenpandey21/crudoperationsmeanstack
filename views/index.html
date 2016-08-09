@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+var url="http://localhost:3000/api/Movie";
+var url2="http://localhost:3000/api/Search1";
+var count=1;
+function myOnclick() {
+
+if(count==1){
+
+function addAllColumnHeaders(myList) {
+
+ var columnSet = [];
+
+ var headerTr$ = $('<tr/>');
+
+
+
+ for (var i = 0; i < myList.length; i++) {
+
+     var rowHash = myList[i];
+
+     for (var key in rowHash) {
+
+         if ($.inArray(key, columnSet) == -1) {
+
+             columnSet.push(key);
+
+             headerTr$.append($('<th scope="row"/>').html(key));
+
+         }
+
+     }
+
+ }
+
+ $("#jsonTable").append(headerTr$);
+
+
+
+ return columnSet;
+
+}
+$.getJSON(url, function (data) {
+
+ var columns = addAllColumnHeaders(data);
+
+
+ for (var i = 0; i < data.length; i++) {
+
+     var row$ = $('<tr/>');
+
+     for (var colIndex = 0; colIndex < columns.length; colIndex++) {
+
+         var cellValue = data[i][columns[colIndex]];
+
+
+
+         if (cellValue == null) { cellValue = ""; }
+
+
+
+         row$.append($('<td/>').html(cellValue));
+
+     }
+
+     $("#jsonTable").append(row$);
+
+ }
+
+});
+}
+count++;
+
+}
+
+/* second button on click */
+
+
+function showOnclick() {
+
+//if(count==1){
+
+function addAllColumnHeaders(myList) {
+
+ var columnSet = [];
+
+ var headerTr$ = $('<tr/>');
+
+
+
+ for (var i = 0; i < myList.length; i++) {
+
+     var rowHash = myList[i];
+
+     for (var key in rowHash) {
+
+         if ($.inArray(key, columnSet) == -1) {
+
+             columnSet.push(key);
+
+             headerTr$.append($('<th scope="row"/>').html(key));
+
+         }
+
+     }
+
+ }
+
+ $("#jsonTable2").append(headerTr$);
+
+
+
+ return columnSet;
+
+}
+$.getJSON(url2, function (data) {
+
+ var columns = addAllColumnHeaders(data);
+
+
+ for (var i = 0; i < data.length; i++) {
+
+     var row$ = $('<tr/>');
+
+     for (var colIndex = 0; colIndex < columns.length; colIndex++) {
+
+         var cellValue = data[i][columns[colIndex]];
+
+
+
+         if (cellValue == null) { cellValue = ""; }
+
+
+
+         row$.append($('<td/>').html(cellValue));
+
+     }
+
+     $("#jsonTable2").append(row$);
+
+ }
+
+});
+//}
+//count++;
+
+}
+
+
+
+</script>
+
+
+
+</head>
+<body>
+<div class="container">
+  <div class="row">
+
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="get"></label>
+      <div class="col-md-4">
+        <button id="get" name="get" class="btn btn-primary" onclick="myOnclick()">Retrieve</button>
+      </div>
+    </div>
+
+<table class="table table-bordered table-inverse" id="jsonTable">
+
+   </table>
+
+ </div>
+
+ <br></br>
+
+ <div class="myform">
+   <form class="form-horizontal" action="/api/Movie1" method="post">
+   <fieldset>
+
+   <!-- Form Name -->
+   <legend>Form Name</legend>
+
+   <!-- Text input-->
+   <div class="form-group">
+     <label class="col-md-4 control-label" for="name">Name</label>
+     <div class="col-md-4">
+     <input  name="name" type="text" placeholder="Enter Your name" class="form-control input-md">
+
+     </div>
+   </div>
+
+   <!-- Password input-->
+   <div class="form-group">
+     <label class="col-md-4 control-label" for="passd">Age</label>
+     <div class="col-md-4">
+       <input  name="passd" type="Number" placeholder="Enter Age" class="form-control input-md">
+
+     </div>
+   </div>
+
+   <!-- Textarea -->
+   <div class="form-group">
+     <label class="col-md-4 control-label" for="address">Address</label>
+     <div class="col-md-4">
+       <textarea class="form-control"  name="address" placeholder="Enter Address"></textarea>
+     </div>
+   </div>
+
+   <!-- Text input-->
+
+
+   <!-- Button (Double) -->
+   <div class="form-group">
+     <label class="col-md-4 control-label" for="save"></label>
+     <div class="col-md-8">
+       <button id="save" name="save" class="btn btn-success">Insert</button>
+       <button id="cancel" name="cancel" class="btn btn-danger">Cancel</button>
+     </div>
+   </div>
+
+   </fieldset>
+   </form>
+
+ </div>
+
+<!---------------------------------------------------------------------------------------------------------------------->
+ <!--delete record section-->
+
+
+ <div class="formdelete">
+   <form class="form-horizontal" action="/api/Delete1" method="post">
+<fieldset>
+
+<!-- Form Name -->
+<legend>Form Delete</legend>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="age">Delete Record</label>
+  <div class="col-md-4">
+  <input id="age" name="age" type="Number" placeholder="Enter id" class="form-control input-md">
+
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="delete"></label>
+  <div class="col-md-4">
+  <!--  <button id="delete" name="delete" class="btn btn-primary" type="submit">Button</button>-->
+  <input type="submit">
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+<!--<form action="/Delete1" method="post">
+
+<input type="text"  name="del" />
+  <input type="submit" />
+</form>-->
+
+
+
+<!-- search from value-->
+
+
+<div class="formdelete">
+  <form class="form-horizontal" action="/api/Search1" method="post">
+<fieldset>
+
+<!-- Form Name -->
+<legend>Form Search</legend>
+
+<!-- Text input-->
+<div class="form-group">
+ <label class="col-md-4 control-label" for="del">Saerch Record</label>
+ <div class="col-md-4">
+ <input id="srch" name="srch" type="text" placeholder="Enter keyword" class="form-control input-md">
+
+ </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+ <label class="col-md-4 control-label" for="delete"></label>
+ <div class="col-md-4">
+ <!--  <button id="delete" name="delete" class="btn btn-primary" type="submit">Button</button>-->
+ <input type="submit" onclick="showOnclick()">
+ </div>
+</div>
+
+</fieldset>
+</form>
+<table class="table table-bordered table-inverse" id="jsonTable2">
+
+   </table>
+
+</div>
+<br><br>
+
+
+<!-- update the the database entries-->
+
+<div class="myform">
+  <form class="form-horizontal" action="/api/Update1" method="post">
+  <fieldset>
+
+  <!-- Form Name -->
+  <legend>Form Name</legend>
+
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="name">Name</label>
+    <div class="col-md-4">
+    <input  name="name" id="name" type="text" placeholder="Enter Your name" class="form-control input-md">
+
+    </div>
+  </div>
+
+  <!-- Password input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="passd">Age</label>
+    <div class="col-md-4">
+      <input  name="passd" type="Number" placeholder="Enter Age" class="form-control input-md">
+
+    </div>
+  </div>
+
+  <!-- Textarea -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="address">Address</label>
+    <div class="col-md-4">
+      <textarea class="form-control"  name="address" placeholder="Enter Address"></textarea>
+    </div>
+  </div>
+
+  <!-- Text input-->
+
+
+  <!-- Button (Double) -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="save"></label>
+    <div class="col-md-8">
+      <button id="save" name="save" class="btn btn-success">Update</button>
+      <button id="cancel" name="cancel" class="btn btn-danger">Cancel</button>
+    </div>
+  </div>
+
+  </fieldset>
+  </form>
+
+</div>
+
+
+
+
+
+
+
+ </div>
+</html>
